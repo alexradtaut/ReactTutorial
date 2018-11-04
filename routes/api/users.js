@@ -11,9 +11,6 @@ const User = require("../../models/User");
 // @access Public
 router.get("/test", (req, res) => res.json({ msg: "Users works" }));
 
-// @route  GET api/users/register
-// @desc   Register user
-// @access Public
 router.post("/register", (req, res) => {
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
@@ -42,6 +39,31 @@ router.post("/register", (req, res) => {
         });
       });
     }
+  });
+});
+
+// @route  Post api/users/login
+// @desc   Login user / return jwt token
+// @access Public
+router.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  //Find user by email
+  User.findOne({ email }).then(user => {
+    //check for user
+    if (!user) {
+      return res.status("404").json({ email: "User not found" });
+    }
+
+    //check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        res.json({ msg: "succes" });
+      } else {
+        return res.status("404").json({ password: "Password incorrect" });
+      }
+    });
   });
 });
 
