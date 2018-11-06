@@ -85,7 +85,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-// @route  Get api/users/cuurent
+// @route  Get api/users/current
 // @desc   Return Current User
 // @access Private
 router.get(
