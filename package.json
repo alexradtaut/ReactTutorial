@@ -21,6 +21,8 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "nodemon": "^1.18.5"
   }
 }
